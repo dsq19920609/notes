@@ -1,0 +1,37 @@
+{
+  "name": "node-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=development nodemon ./app.js",
+    "rc": "cross-env  NODE_ENV=production nodemon ./app.js",
+    "debug": "cross-env NODE_ENV=development nodemon --inspect ./app.js",
+    "pm2": "cross-env NODE_ENV=production NODE_LOG_DIR=/tmp ENABLE_NODE_LOG=YES pm2 start ./bin/pm2.config.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "koa": "^2.13.1",
+    "koa-body": "^4.2.0",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.1",
+    "koa-onerror": "^4.1.0",
+    "koa-router": "^10.0.0",
+    "mongoose": "^5.12.9",
+    "mongoose-paginate": "^5.0.3",
+    "mongoose-unique-validator": "^2.0.3",
+    "pm2": "^4.5.6"
+  },
+  "devDependencies": {
+    "@types/koa-router": "^7.4.2",
+    "@types/node": "^15.3.0",
+    "eslint": "^7.26.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.2",
+    "nodemon": "^2.0.7"
+  }
+}
