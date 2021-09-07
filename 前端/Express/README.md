@@ -7,7 +7,12 @@ express学习笔记
 
 [awesome-express](https://github.com/wabg/awesome-express)
 
+[awesome-nodejs](https://github.com/sindresorhus/awesome-nodejs)
+
 [nodemon](https://www.npmjs.com/package/nodemon)
+
+[validator.js](https://github.com/validatorjs/validator.js)
+
 
 <br/>
 
@@ -154,8 +159,10 @@ express学习笔记
 
       `express-validator`插件: 基于validator.js封装的express中间件
 
-      感觉不如自己校验方便呢，还是用loadsh自己写吧
-  
+      该插件可以在router中对数据进行基本校验和业务校验
+
+      java中校验一般放在controller或者service
+      
 8、用户鉴权 session和token，refresh-token
 
    基于JWT的接口权限认证
@@ -167,7 +174,9 @@ express学习笔记
 13、swagger接口文档
 
 
-11、数据库mysql, mongoDB
+11、数据库mysql, mongoDB, redis
+
+    mongoDB: mongoose
 
     事务处理
 
