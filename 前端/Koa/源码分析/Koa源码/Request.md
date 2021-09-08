@@ -539,6 +539,27 @@ module.exports = {
 
 [参考文章](https://www.cnblogs.com/kevingrace/p/8269955.html)
 
+[参考文章](https://www.jianshu.com/p/bc0e1f46f84a)
+
+要知道, 我们在实际运用中, 可能会使用很多的代理服务器, 包括我们常见的正向代理与反向代理, 虽然代理的用处很大, 但是无法避免地我们有时需要知晓真正的`客户端的请求 ip`,
+而其实实际上, 服务器并不知道真正的客户端请求 ip, 即使你使用` socket.remoteAddrss` 属性来查看, 因为这个请求是`代理服务器转发给服务器`的, 幸好代理服务器例如 `nginx` 提供了一个
+`HTTP 头部`来记录每次代理服务器的`源 IP 地址`, 也就是 `X-Forwarded-For` 头部.形式如下:
+
+~~~js
+X-Forwarded-For: 192.168.210.13, 210.112.40.13, 43.56.210.10
+~~~
+
+`如果一个请求跳转了很多代理服务器, 那么 X-Forwarded-For 头部的 ip 地址就会越多, 第一个就是原始的客户端请求 ip, 第二个就是第一个代理服务器 ip, 以此类推.`
+
+`X-Forwarded-For` 并不完全可信, 因为中间的代理服务器可能会"使坏"更改某些 IP. 而 koa 中 `proxy` 属性的设置就是如果使用 `true`, 那么就是使用 `X-Forwarded-For` 头部的`第一个
+ip 地址`, 如果使用 false, 则使用 server 中的 `socket.remoteAddress` 属性值.
+
+
+除了 `X-Forwarded-For` 之外, proxy 还会影响 `X-Forwarded-proto` 的使用, 和 `X-Forwarded-For` 一样, `X-Forwarded-proto` 记录最开始的请求连接使用的`协议类型`(HTTP/HTTPS)
+
+因为客户端与服务端之间可能会存在很多层代理服务器, 而代理服务器与服务端之间可能只是使用 HTTP 协议, 并没有使用 HTTPS, 所以 `proxy` 属性为 `true` 的话, koa 的 `protocol` 属性会去取 `X-Forwarded-proto` 头部的值(koa 中 protocol 属性会先使用 tlsSocket.encrypted 属性来判断是否是 https 协议, 如果是则直接返回 ‘https’).
+
+
 `proxy_set_header 就是可设置请求头-并将头信息传递到服务器端， 即允许重新定义或添加字段传递给代理服务器的请求头。该值可以包含文本、变量和它们的组合`
 
 nginx配置：
@@ -604,3 +625,8 @@ get subdomains() {
       .slice(offset);
   },
 ~~~
+
+<br/><br/>
+
+
+[参考文章](https://www.jianshu.com/p/bc0e1f46f84a)

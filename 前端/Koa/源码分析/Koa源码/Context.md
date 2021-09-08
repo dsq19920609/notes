@@ -82,7 +82,7 @@ const proto = module.exports = {
     res.end(msg);
   },
 
-  // cookies设置和获取
+  // cookies设置和获取 keys可以设置cookie签名防止客户端篡改
   get cookies() {
     if (!this[COOKIES]) {
       this[COOKIES] = new Cookies(this.req, this.res, {
